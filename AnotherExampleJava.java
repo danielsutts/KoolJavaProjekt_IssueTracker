@@ -1,3 +1,3 @@
 public class AnotherExampleJava {
-    public final int CONSTANT 1;
+    public final int CONSTANT = 1;
 }
