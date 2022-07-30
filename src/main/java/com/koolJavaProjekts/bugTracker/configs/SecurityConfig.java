@@ -39,7 +39,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/home").authenticated()
                 .antMatchers("/register").permitAll()
                 .and().formLogin()
-                .and().httpBasic()
-                .and().cors().disable();
+                .and().httpBasic();
     }
 }
