@@ -6,19 +6,19 @@ import javax.persistence.*;
 
 public class User {
     @Column
-    private final String name;
+    private String name;
     @Column
-    private final String surname;
+    private String surname;
     @Column
-    private final String nickname;
+    private String nickname;
     @Column
-    private final String team;
+    private String team;
     @Column
-    private final String email;
+    private String email;
     @Column
-    private final String password;
+    private String password;
     @Column
-    private final String image;
+    private String image;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final long id;
@@ -60,32 +60,49 @@ public class User {
     public String getName() {
         return name;
     }
-
     public String getSurname() {
         return surname;
     }
-
     public String getNickname() {
         return nickname;
     }
-
     public String getTeam() {
         return team;
     }
-
     public String getEmail() {
         return email;
     }
-
     public String getPassword() {
         return password;
     }
-
     public String getImage() {
         return image;
     }
-
     public long getId() {
         return id;
     }
+
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+    public void setTeam(String team) {
+        this.team = team;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    public void setImage(String image) {
+        this.image = image;
+    }
 }
+
