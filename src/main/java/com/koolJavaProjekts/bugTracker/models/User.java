@@ -1,13 +1,26 @@
 package com.koolJavaProjekts.bugTracker.models;
 
+import javax.persistence.*;
+
+@Entity(name = "users")
+
 public class User {
+    @Column
     private final String name;
+    @Column
     private final String surname;
+    @Column
     private final String nickname;
+    @Column
     private final String team;
+    @Column
     private final String email;
+    @Column
     private final String password;
+    @Column
     private final String image;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final long id;
 
 
@@ -20,6 +33,28 @@ public class User {
         this.password = password;
         this.image = image;
         this.id = id;
+    }
+
+    public User(String email, String password, long id){
+        this.email = email;
+        this.password = password;
+        this.name = "";
+        this.surname = "";
+        this.nickname = "";
+        this.team = "";
+        this.image = "";
+        this.id = id;
+    }
+
+    public User() {
+        this.email = "";
+        this.password = "";
+        this.name = "";
+        this.surname = "";
+        this.nickname = "";
+        this.team = "";
+        this.image = "";
+        this.id = -1;
     }
 
     public String getName() {
