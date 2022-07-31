@@ -28,13 +28,7 @@ public class UserController {
     public void updateUser(User newUser){
         for (User user : userRepository.findAll()) {
             if (user.getId() == newUser.getId()) {
-                user.setName(newUser.getName());
-                user.setSurname(newUser.getSurname());
-                user.setEmail(newUser.getEmail());
-                user.setNickname(newUser.getNickname());
-                user.setPassword(newUser.getPassword());
-                user.setImage(newUser.getImage());
-                user.setTeam(newUser.getTeam());
+                user.resetUser(newUser);
             }
         }
     }

@@ -82,7 +82,6 @@ public class User {
         return id;
     }
 
-
     public void setName(String name) {
         this.name = name;
     }
@@ -103,6 +102,15 @@ public class User {
     }
     public void setImage(String image) {
         this.image = image;
+    }
+    public void resetUser(User newUser){
+        this.name = newUser.name;
+        this.surname = newUser.surname;
+        this.nickname = newUser.nickname;
+        this.email = newUser.email;
+        this.password = newUser.password;
+        this.image = newUser.image;
+        this.team = newUser.team;
     }
 }
 
