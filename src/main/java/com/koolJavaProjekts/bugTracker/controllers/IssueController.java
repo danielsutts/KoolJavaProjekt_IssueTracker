@@ -3,6 +3,7 @@ package com.koolJavaProjekts.bugTracker.controllers;
 import com.koolJavaProjekts.bugTracker.models.Issue;
 import com.koolJavaProjekts.bugTracker.models.User;
 import com.koolJavaProjekts.bugTracker.repositories.IssueRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 public class IssueController {
+    @Autowired
 
     IssueRepository issueRepository;
 

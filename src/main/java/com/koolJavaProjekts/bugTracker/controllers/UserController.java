@@ -2,16 +2,17 @@ package com.koolJavaProjekts.bugTracker.controllers;
 
 import com.koolJavaProjekts.bugTracker.models.User;
 import com.koolJavaProjekts.bugTracker.repositories.UserRepository;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class UserController {
 
+    @Autowired
     UserRepository userRepository;
 
     @GetMapping("/user/all")
