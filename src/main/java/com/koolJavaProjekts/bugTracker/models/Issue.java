@@ -9,49 +9,49 @@ public class Issue {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private final long issueId;
     @Column
-    private final String priority;
+    private String priority;
     @Column
-    private final String issueName;
+    private String issueName;
     @Column
-    private final String description;
+    private String description;
     @Column
-    private final String attachment;
+    private String attachment;
     @Column
-    private final Integer buildVersion;
+    private Integer buildVersion;
     @Column
-    private final String requester;
+    private String requester;
     @Column
-    private final String assignee;
+    private String assignee;
     @Column
-    private final Integer dateOpened;
+    private Integer dateOpened;
     @Column
-    private final Integer dateUpdated;
+    private Integer dateUpdated;
     @Column
-    private final Integer dateDue;
+    private Integer dateDue;
     @Column
-    private final Integer buildPoints;
+    private Integer buildPoints;
     @Column
-    private final Integer storyPoints;
+    private Integer storyPoints;
     @Column
-    private final Integer mrr;
+    private Integer mrr;
     @Column
-    private final String project;
+    private String project;
     @Column
-    private final long childId;
+    private long childId;
     @Column
-    private final long parentId;
+    private long parentId;
     @Column
-    private final String summary;
+    private String summary;
     @Column
-    private final String branchName;
+    private String branchName;
     @Column
-    private final String se;
+    private String se;
     @Column
-    private final String qe;
+    private String qe;
     @Column
-    private final String teamLead;
+    private String teamLead;
     @Column
-    private final String issue;
+    private String issue;
 
 
     public Issue(long issueId, String priority, String issueName, String description, String attachment, Integer buildVersion, String requester, String assignee, Integer dateOpened, Integer dateUpdated, Integer dateDue, Integer buildPoints, Integer storyPoints, Integer mrr, String project, long childId, long parentId, String summary, String branchName, String se, String qe, String teamLead, String issue) {
@@ -110,93 +110,158 @@ public class Issue {
     public long getIssueId() {
         return issueId;
     }
-
     public String getPriority() {
         return priority;
     }
-
     public String getIssueName() {
         return issueName;
     }
-
     public String getDescription() {
         return description;
     }
-
     public String getAttachment() {
         return attachment;
     }
-
     public Integer getBuildVersion() {
         return buildVersion;
     }
-
     public String getRequester() {
         return requester;
     }
-
     public String getAssignee() {
         return assignee;
     }
-
     public Integer getDateOpened() {
         return dateOpened;
     }
-
     public Integer getDateUpdated() {
         return dateUpdated;
     }
-
     public Integer getDateDue() {
         return dateDue;
     }
-
     public Integer getBuildPoints() {
         return buildPoints;
     }
-
     public Integer getStoryPoints() {
         return storyPoints;
     }
-
     public Integer getMrr() {
         return mrr;
     }
-
     public String getProject() {
         return project;
     }
-
     public long getChildId() {
         return childId;
     }
-
     public long getParentId() {
         return parentId;
     }
-
     public String getSummary() {
         return summary;
     }
-
     public String getBranchName() {
         return branchName;
     }
-
     public String getSe() {
         return se;
     }
-
     public String getQe() {
         return qe;
     }
-
     public String getTeamLead() {
         return teamLead;
     }
-
     public String getIssue() {
         return issue;
     }
 
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
+    public void setIssueName(String issueName) {
+        this.issueName = issueName;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setAttachment(String attachment) {
+        this.attachment = attachment;
+    }
+
+    public void setBuildVersion(Integer buildVersion) {
+        this.buildVersion = buildVersion;
+    }
+
+    public void setRequester(String requester) {
+        this.requester = requester;
+    }
+
+    public void setAssignee(String assignee) {
+        this.assignee = assignee;
+    }
+
+    public void setDateOpened(Integer dateOpened) {
+        this.dateOpened = dateOpened;
+    }
+
+    public void setDateUpdated(Integer dateUpdated) {
+        this.dateUpdated = dateUpdated;
+    }
+
+    public void setDateDue(Integer dateDue) {
+        this.dateDue = dateDue;
+    }
+
+    public void setBuildPoints(Integer buildPoints) {
+        this.buildPoints = buildPoints;
+    }
+
+    public void setStoryPoints(Integer storyPoints) {
+        this.storyPoints = storyPoints;
+    }
+
+    public void setMrr(Integer mrr) {
+        this.mrr = mrr;
+    }
+
+    public void setProject(String project) {
+        this.project = project;
+    }
+
+    public void setChildId(long childId) {
+        this.childId = childId;
+    }
+
+    public void setParentId(long parentId) {
+        this.parentId = parentId;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public void setBranchName(String branchName) {
+        this.branchName = branchName;
+    }
+
+    public void setSe(String se) {
+        this.se = se;
+    }
+
+    public void setQe(String qe) {
+        this.qe = qe;
+    }
+
+    public void setTeamLead(String teamLead) {
+        this.teamLead = teamLead;
+    }
+
+    public void setIssue(String issue) {
+        this.issue = issue;
+    }
 }

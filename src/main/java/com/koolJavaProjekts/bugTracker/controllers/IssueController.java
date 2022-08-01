@@ -1,7 +1,6 @@
 package com.koolJavaProjekts.bugTracker.controllers;
 
 import com.koolJavaProjekts.bugTracker.models.Issue;
-import com.koolJavaProjekts.bugTracker.models.User;
 import com.koolJavaProjekts.bugTracker.repositories.IssueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
