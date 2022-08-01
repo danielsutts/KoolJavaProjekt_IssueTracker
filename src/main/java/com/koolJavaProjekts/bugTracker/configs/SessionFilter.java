@@ -43,6 +43,7 @@ public class SessionFilter extends OncePerRequestFilter {
         }
 
         final User user = userService.loadUserByUsername(username);
+        System.out.println(user.getEmail());
 
         final UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                 user,

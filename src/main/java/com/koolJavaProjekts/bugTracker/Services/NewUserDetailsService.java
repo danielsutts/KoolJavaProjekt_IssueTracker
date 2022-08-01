@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,6 @@ public class NewUserDetailsService implements UserDetailsService {
     @Override
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
         List<User> listOfUsers = userRepository.findAll();
-
         for (User user : listOfUsers) {
             //in this case nickname = email
             if (user.getEmail().equals(username)) {

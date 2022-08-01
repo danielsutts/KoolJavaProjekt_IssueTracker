@@ -27,12 +27,12 @@ public class ApiController {
     public InMemorySessionRegistry sessionRegistry;
 
     @PostMapping("/login")
-    public ResponseEntity<ResponseDTO> loginUser(@RequestBody UserDTO userDto) {
-        manager.authenticate(new UsernamePasswordAuthenticationToken(userDto.getUsername(), userDto.getPassword()));
-        final String sessionId = sessionRegistry.registerSession(userDto.getUsername());
+    public ResponseEntity<ResponseDTO> loginUser(@RequestBody UserDTO userDTO) {
+        manager.authenticate(new UsernamePasswordAuthenticationToken(userDTO.getUsername(), userDTO.getPassword()));
+
+        final String sessionId = sessionRegistry.registerSession(userDTO.getUsername());
         ResponseDTO response = new ResponseDTO();
         response.setSessionId(sessionId);
-
         return ResponseEntity.ok(response);
     }
 }
