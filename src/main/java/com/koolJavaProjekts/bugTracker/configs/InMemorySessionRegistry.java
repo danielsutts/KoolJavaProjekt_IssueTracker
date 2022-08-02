@@ -25,6 +25,7 @@ public class InMemorySessionRegistry {
         return SESSIONS.get(sessionId);
     }
 
+    public boolean sessionIsRegistered(final String sessionId) { return SESSIONS.containsKey(sessionId); }
     private String generateSessionId() {
         return new String(
                 Base64.getEncoder().encode(

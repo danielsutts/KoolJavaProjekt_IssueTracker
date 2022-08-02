@@ -1,5 +1,7 @@
 package com.koolJavaProjekts.bugTracker.models;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 
 @Entity(name = "issues")
@@ -53,7 +55,7 @@ public class Issue {
     @Column
     private String issue;
 
-
+@Autowired
     public Issue(long issueId, String priority, String issueName, String description, String attachment, Integer buildVersion, String requester, String assignee, Integer dateOpened, Integer dateUpdated, Integer dateDue, Integer buildPoints, Integer storyPoints, Integer mrr, String project, long childId, long parentId, String summary, String branchName, String se, String qe, String teamLead, String issue) {
         this.issueId = issueId;
         this.priority = priority;
