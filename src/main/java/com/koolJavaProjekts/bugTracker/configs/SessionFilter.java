@@ -22,7 +22,7 @@ public class SessionFilter extends OncePerRequestFilter {
     private final NewUserDetailsService userService;
 
     @Autowired
-    public SessionFilter(InMemorySessionRegistry sessionRegistry, NewUserDetailsService userService) {
+    public SessionFilter(final InMemorySessionRegistry sessionRegistry, final NewUserDetailsService userService) {
         this.sessionRegistry = sessionRegistry;
         this.userService = userService;
     }
@@ -35,15 +35,16 @@ public class SessionFilter extends OncePerRequestFilter {
 
         if (sessionId == null || sessionId.length() == 0) {
             chain.doFilter(request, response);
+            return;
         }
 
         final String username = sessionRegistry.getUsernameForSession(sessionId);
         if (username == null) {
             chain.doFilter(request, response);
+            return;
         }
 
         final User user = userService.loadUserByUsername(username);
-        System.out.println(user.getEmail());
 
         final UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                 user,

@@ -7,20 +7,25 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import javax.servlet.http.HttpServletResponse;
+
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private NewUserDetailsService userDetailsService;
+    private final NewUserDetailsService userDetailsService;
     @Autowired
     private final SessionFilter sessionFilter;
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final BCryptPasswordEncoder passwordEncoder;
 
-    public SecurityConfig(NewUserDetailsService userDetailsService, SessionFilter sessionFilter, PasswordEncoder passwordEncoder) {
+    public SecurityConfig(NewUserDetailsService userDetailsService, SessionFilter sessionFilter, BCryptPasswordEncoder passwordEncoder) {
         this.userDetailsService = userDetailsService;
         this.sessionFilter = sessionFilter;
         this.passwordEncoder = passwordEncoder;
@@ -29,35 +34,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .inMemoryAuthentication()
-                        .withUser("admin")
-                        .password(passwordEncoder.encode("password"))
-                        .roles("ADMIN");
-        auth
-                .inMemoryAuthentication()
-                        .withUser("user")
-                                .password(passwordEncoder.encode("password"))
-                                        .roles("USER");
-        auth
                 .userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder);
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http
-                .cors().and().csrf().disable()
+                .cors().and().csrf().disable();
+        http = http.exceptionHandling().authenticationEntryPoint(
+                ((request, response, authException) -> {
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
+                })
+        ).and();
+        http
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/api/login").permitAll()
                 .antMatchers("/user").permitAll()
                 .antMatchers("/home").authenticated()
-                .antMatchers("/register").permitAll()
-                .and().formLogin()
-                .and().httpBasic();
+                .antMatchers("/register").permitAll();
+
         http.addFilterBefore(sessionFilter, UsernamePasswordAuthenticationFilter.class);
     }
-    @Override
     @Bean
+    @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
