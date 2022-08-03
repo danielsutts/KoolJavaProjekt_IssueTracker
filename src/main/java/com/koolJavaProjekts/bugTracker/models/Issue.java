@@ -266,4 +266,28 @@ public class Issue {
     public void setIssue(String issue) {
         this.issue = issue;
     }
+    public void resetIssue(Issue newIssue){
+        this.priority = newIssue.priority;
+        this.issueName = newIssue.issueName;
+        this.description = newIssue.description;
+        this.attachment = newIssue.attachment;
+        this.buildVersion = newIssue.buildVersion;
+        this.requester = newIssue.requester;
+        this.assignee = newIssue.assignee;
+        this.dateOpened = newIssue.dateOpened;
+        this.dateUpdated = newIssue.dateUpdated;
+        this.dateDue = newIssue.dateDue;
+        this.buildPoints = newIssue.buildPoints;
+        this.storyPoints = newIssue.storyPoints;
+        this.mrr = newIssue.mrr;
+        this.project = newIssue.project;
+        this.childId = newIssue.childId;
+        this.parentId = newIssue.parentId;
+        this.summary = newIssue.summary;
+        this.branchName = newIssue.branchName;
+        this.se = newIssue.se;
+        this.qe = newIssue.qe;
+        this.teamLead = newIssue.teamLead;
+        this.issue = newIssue.issue;
+    }
 }
