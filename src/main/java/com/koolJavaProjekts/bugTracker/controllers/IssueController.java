@@ -5,6 +5,7 @@ import com.koolJavaProjekts.bugTracker.dto.IssueDTO;
 import com.koolJavaProjekts.bugTracker.models.Issue;
 import com.koolJavaProjekts.bugTracker.repositories.IssueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,14 +43,14 @@ public class IssueController {
     }
 
     @PostMapping("/issues/issue")
-    public ResponseEntity updateIssue(Issue newIssue){
+    public ResponseEntity<String> updateIssue(Issue newIssue){
         for (Issue issue : issueRepository.findAll()) {
             if (issue.getIssueId() == newIssue.getIssueId()) {
                 issue.resetIssue(newIssue);
                 return ResponseEntity.ok("Ok");
             }
         }
-        return (ResponseEntity) ResponseEntity.badRequest();
+        return new ResponseEntity<String>("No issue found", HttpStatus.BAD_REQUEST);
     }
 
     @DeleteMapping("/issues/delete")

@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SearchController {
     /*
-    Either perfect match, or substring match
+    Either perfect match, or substring match of issue name
      */
-    @GetMapping("/search?" + issue_name)
-    public ResponseEntity<Issue> searchResult(String search) {
-        return ResponseEntity.ok(resultIssues);
-    }
+//    @GetMapping("/search?" + issue_name)
+//    public ResponseEntity<Issue> searchResult(String search) {
+//        return ResponseEntity.ok(resultIssues);
+//    }
 }

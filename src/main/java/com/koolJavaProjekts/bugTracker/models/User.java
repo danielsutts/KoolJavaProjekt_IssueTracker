@@ -1,6 +1,7 @@
 package com.koolJavaProjekts.bugTracker.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,9 +27,8 @@ public class User implements UserDetails {
     @Column
     private String image;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
-    private final long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
 
     public User(String name, String surname, String nickname, String team, String email, String password, String image, long id) {
@@ -42,7 +42,7 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public User(String email, String password, long id){
+    public User(String email, String password){
         this.email = email;
         this.password = password;
         this.name = "";
@@ -50,7 +50,6 @@ public class User implements UserDetails {
         this.nickname = "";
         this.team = "";
         this.image = "";
-        this.id = id;
     }
 
     public User() {
@@ -61,7 +60,6 @@ public class User implements UserDetails {
         this.nickname = "";
         this.team = "";
         this.image = "";
-        this.id = -1;
     }
 
     public String getName() {
