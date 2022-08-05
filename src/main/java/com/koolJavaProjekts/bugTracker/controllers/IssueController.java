@@ -14,13 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/issues")
 public class IssueController {
     @Autowired
     IssueRepository issueRepository;
     @Autowired
     InMemorySessionRegistry sessionRegistry;
 
-    @GetMapping("/issues/all")
+    @GetMapping("/all")
     public ResponseEntity<List<IssueDTO>> allIssues(HttpSession session) throws Exception {
         String sessionId = session.getId();
         if (sessionId == null || sessionId.equals("") || sessionRegistry.sessionIsRegistered(sessionId)) {
@@ -36,13 +37,23 @@ public class IssueController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/search?{issueName}")
+    public ResponseEntity<Issue> getIssue(@PathVariable String issueName){
+        for (Issue issue : issueRepository.findAll()){
+            if (issue.getIssueName() == issueName){
+                return ResponseEntity.ok(issue);
+            }
+        }
+        return (ResponseEntity<Issue>) ResponseEntity.noContent();
+    }
+
     @PostMapping("/issues/add")
     public ResponseEntity addIssue(Issue issue) {
         issueRepository.save(issue);
         return (ResponseEntity) ResponseEntity.accepted();
     }
 
-    @PostMapping("/issues/issue")
+    @PutMapping("/issue")
     public ResponseEntity<String> updateIssue(Issue newIssue){
         for (Issue issue : issueRepository.findAll()) {
             if (issue.getIssueId() == newIssue.getIssueId()) {
@@ -53,7 +64,7 @@ public class IssueController {
         return new ResponseEntity<String>("No issue found", HttpStatus.BAD_REQUEST);
     }
 
-    @DeleteMapping("/issues/delete")
+    @DeleteMapping("/delete")
     public ResponseEntity deleteIssue(Issue deleteIssue) {
         for (Issue issue : issueRepository.findAll()) {
             if (issue.getIssueId() == deleteIssue.getIssueId()) {
