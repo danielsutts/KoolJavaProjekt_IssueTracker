@@ -1,6 +1,5 @@
 package com.koolJavaProjekts.bugTracker.dto;
 
-// TODO dr1mix: match IssueDTO to Issue
 public class IssueDTO {
     private String issueName;
     private long issueID;
