@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -42,49 +43,48 @@ public class IssueController {
     // Look at query for parameters -> if not, return name, description match
     @GetMapping("/search?{query}")
     public ResponseEntity<List<Issue>> getIssue(@PathVariable String query){
-//        for (Issue issue : issueRepository.findAll()){
-//            if (issue.getIssueName() == query){
-//                return ResponseEntity.ok(issue);
-//            }
-//        }
-//        return (ResponseEntity<Issue>) ResponseEntity.noContent();
-        String s1 = "id=1,user=daniel@tech";
-        String s2 = "name=FirstIssue";
-        String s3 = "This is our first is";
-        /*
-        if (s1.contains("id") || s1.contains("user") || s1.contains("name")) {
-            private static final HashMap<String, String>;
-            HashMap(String, String) parameters = parseParameters();
-
-            ("id", "1"), ("user", "daniel@tech"), ("name", "FirstIssue")
-            for (String param: HashMap.getKeys()) {
-                issueRepository.findByParam()
+        query = query.toLowerCase();
+        List<Issue> response = new ArrayList<>();
+        if (query.contains("id=") || query.contains("user=") || query.contains("name=")) {
+            final HashMap<String, String> hashIssue = new HashMap<>();
+            if(query.contains("id=")){
+                hashIssue.put("id", query.substring(query.indexOf("id") + 3, query.indexOf(";")));
+                //query = query.substring(query.indexOf("id="), query.indexOf(";"));
             }
-
-            compareByParam()
-            return allThatApply();
-
-            if (allThatApply().size() == 0) {
-                return ResponseEntity.badRequest();
+            if(query.contains("user=")){
+                hashIssue.put("user", query.substring(query.indexOf("user") + 5, query.indexOf(";")));
             }
-        } else {
-
+            if(query.contains("name=")){
+                hashIssue.put("name", query.substring(query.indexOf("name") + 5, query.indexOf(";")));
+            }
+            for (Issue issue : issueRepository.findAll()){
+                if (issue.getIssueId() == Long.parseLong(hashIssue.get("id")) ||
+                        issue.getAssignee().equals(hashIssue.get("user")) ||
+                        issue.getQe().equals(hashIssue.get("user")) ||
+                        issue.getSe().equals(hashIssue.get("user")) ||
+                        issue.getIssueName().equals(hashIssue.get("name")))
+                {
+                    response.add(issue);
+                }
+            }
+            return ResponseEntity.ok(response);
         }
-        */
-        /* TODO
-         1. IssueName: {id, user, name}.
+        for (Issue issue : issueRepository.findAll()){
+            if (issue.getDescription().contains(query)){
+                response.add(issue);
+            }
+        }
+        if (!response.isEmpty()){
+            return ResponseEntity.ok(response);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
-         issueName: "id=1"
-         {id: "1"} -> issueRepository.findById(id) -> return issue;;
-         issueName: "user=max@tech"
-         {user: "max@tech"} -> issueRepository.findAll() -> (requester, assignee, se, qe, teamlead) = "max@tech" -> return issues;
-         if issues.contains(otherIssue) { not add };
-
+        //TODO @RequestParam and "boolean AND" of parameters for response(issue)
+        /*
          issueName: find all id, user, name -> "user=max@tech,name=FirstIssue"
          a) Find all issues -> check each if has name
          b) Find all issues for user, find all for name, compare (equals)
-
-         */
+        */
     }
 
     @PostMapping("/issues/add")
