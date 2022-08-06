@@ -1,8 +1,10 @@
 package com.koolJavaProjekts.bugTracker.controllers;
 
 import com.koolJavaProjekts.bugTracker.configs.InMemorySessionRegistry;
+import com.koolJavaProjekts.bugTracker.dto.IssueDTO;
 import com.koolJavaProjekts.bugTracker.dto.ResponseDTO;
 import com.koolJavaProjekts.bugTracker.dto.UserDTO;
+import com.koolJavaProjekts.bugTracker.models.Issue;
 import com.koolJavaProjekts.bugTracker.models.User;
 import com.koolJavaProjekts.bugTracker.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.Id;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
     Controller for Authentication.
@@ -55,5 +60,18 @@ public class ApiController {
         newUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         userRepository.save(newUser);
         return loginUser(userDTO);
+    }
+
+    @GetMapping("/user/me")
+    public ResponseEntity<ResponseDTO> getUsername(HttpSession session) throws Exception{
+        String sessionId = session.getId();
+        if (sessionId == null || sessionId.equals("") || sessionRegistry.sessionIsRegistered(sessionId)) {
+            throw new Exception("Authentication failed. No key no cookies.");
+        }
+        String response = sessionRegistry.getUsernameForSession(sessionId);
+        ResponseDTO responseDTO = new ResponseDTO();
+        responseDTO.setSessionId(response);
+        System.out.println(responseDTO.getSessionId());
+        return ResponseEntity.ok(responseDTO);
     }
 }

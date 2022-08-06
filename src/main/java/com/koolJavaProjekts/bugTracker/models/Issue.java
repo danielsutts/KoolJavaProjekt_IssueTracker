@@ -154,6 +154,7 @@ public class Issue {
     public String getProject() {
         return project;
     }
+
     public long getChildId() {
         return childId;
     }
@@ -289,5 +290,12 @@ public class Issue {
         this.qe = newIssue.qe;
         this.teamLead = newIssue.teamLead;
         this.issue = newIssue.issue;
+    }
+
+    public boolean equals(Issue issue1, Issue issue2) {
+        if (issue1.getIssueId() == issue2.getIssueId()) {
+            return true;
+        }
+        return false;
     }
 }

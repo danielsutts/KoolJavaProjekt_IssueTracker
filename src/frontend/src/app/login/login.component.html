@@ -1,13 +1,30 @@
-<form name="form" (ngSubmit)="login()" #f="ngForm">
-  <div>
-    <label for="username">Username:</label>
-    <input id="username" type="text" name="username" [(ngModel)]="model.username" #username="ngModel" required />
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4"></div>
+    <div class="col-12 col-lg-4 col-md-4">
+      <div class="form-signin w-100 m-auto">
+        <form style="align-self: center">
+          <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+          <div class="form-floating">
+            <input name="username" type="email" class="form-control" id="floatingInput" placeholder="name@example.com" [(ngModel)]="model.username" #username="ngModel" required >
+            <label for="floatingInput">Email address</label>
+          </div>
+          <div class="form-floating">
+            <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password"  [(ngModel)]="model.password" #password="ngModel" required >
+            <label for="floatingPassword">Password</label>
+          </div>
+
+          <div class="checkbox mb-3">
+            <label>
+              <input type="checkbox" value="remember-me"> Remember me
+            </label>
+          </div>
+          <button class="w-100 btn btn-lg btn-primary" (click)="login()" type="submit">Sign in</button>
+          <p class="mt-5 mb-3 text-muted">© 2022</p>
+        </form>
+      </div>
+    </div>
+    <div class="col-lg-4"></div>
   </div>
-  <div>
-    <label for="password">Password:</label>
-    <input id="password" type="text" name="password" [(ngModel)]="model.password" #password="ngModel" required />
-  </div>
-  <div>
-    <button>Login</button>
-  </div>
-</form>
+</div>

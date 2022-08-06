@@ -37,14 +37,54 @@ public class IssueController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/search?{issueName}")
-    public ResponseEntity<Issue> getIssue(@PathVariable String issueName){
-        for (Issue issue : issueRepository.findAll()){
-            if (issue.getIssueName() == issueName){
-                return ResponseEntity.ok(issue);
+    // This method computes query for given parameters:
+    // id, user, name, (priority)
+    // Look at query for parameters -> if not, return name, description match
+    @GetMapping("/search?{query}")
+    public ResponseEntity<List<Issue>> getIssue(@PathVariable String query){
+//        for (Issue issue : issueRepository.findAll()){
+//            if (issue.getIssueName() == query){
+//                return ResponseEntity.ok(issue);
+//            }
+//        }
+//        return (ResponseEntity<Issue>) ResponseEntity.noContent();
+        String s1 = "id=1,user=daniel@tech";
+        String s2 = "name=FirstIssue";
+        String s3 = "This is our first is";
+        /*
+        if (s1.contains("id") || s1.contains("user") || s1.contains("name")) {
+            private static final HashMap<String, String>;
+            HashMap(String, String) parameters = parseParameters();
+
+            ("id", "1"), ("user", "daniel@tech"), ("name", "FirstIssue")
+            for (String param: HashMap.getKeys()) {
+                issueRepository.findByParam()
             }
+
+            compareByParam()
+            return allThatApply();
+
+            if (allThatApply().size() == 0) {
+                return ResponseEntity.badRequest();
+            }
+        } else {
+
         }
-        return (ResponseEntity<Issue>) ResponseEntity.noContent();
+        */
+        /* TODO
+         1. IssueName: {id, user, name}.
+
+         issueName: "id=1"
+         {id: "1"} -> issueRepository.findById(id) -> return issue;;
+         issueName: "user=max@tech"
+         {user: "max@tech"} -> issueRepository.findAll() -> (requester, assignee, se, qe, teamlead) = "max@tech" -> return issues;
+         if issues.contains(otherIssue) { not add };
+
+         issueName: find all id, user, name -> "user=max@tech,name=FirstIssue"
+         a) Find all issues -> check each if has name
+         b) Find all issues for user, find all for name, compare (equals)
+
+         */
     }
 
     @PostMapping("/issues/add")

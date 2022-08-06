@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     }).subscribe(res => {
       if (res) {
         this.sessionId = res.sessionId;
-
+        
         sessionStorage.setItem(
           'token',
           this.sessionId
