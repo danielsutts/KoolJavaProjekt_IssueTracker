@@ -30,7 +30,7 @@ public class IssueController {
         }
         List<IssueDTO> response = new ArrayList<>();
         IssueDTO issueDto = new IssueDTO();
-        for (Issue issue : issueRepository.findAll()){
+        for (Issue issue : issueRepository.findAll()) {
             issueDto.setIssueName(issue.getIssueName());
             issueDto.setIssueID(issue.getIssueId());
             response.add(issueDto);
@@ -41,51 +41,54 @@ public class IssueController {
     // This method computes query for given parameters:
     // id, user, name, (priority)
     // Look at query for parameters -> if not, return name, description match
-    @GetMapping("/search?{query}")
-    public ResponseEntity<List<Issue>> getIssue(@PathVariable String query){
-        query = query.toLowerCase();
-        List<Issue> response = new ArrayList<>();
-        if (query.contains("id=") || query.contains("user=") || query.contains("name=")) {
+    @GetMapping("/search")
+    public ResponseEntity<List<Issue>> getIssue(@RequestParam(value = "id", required = false) String id,
+                                                @RequestParam(value = "user", required = false) String user,
+                                                @RequestParam(value = "name", required = false) String name) {
+        if (id != null || user != null || name != null){
+            List<Issue> response = new ArrayList<>();
             final HashMap<String, String> hashIssue = new HashMap<>();
-            if(query.contains("id=")){
-                hashIssue.put("id", query.substring(query.indexOf("id") + 3, query.indexOf(";")));
-                //query = query.substring(query.indexOf("id="), query.indexOf(";"));
+            if (id != null) {
+                //TODO make check that ID is Long
+                hashIssue.put("id", id);
             }
-            if(query.contains("user=")){
-                hashIssue.put("user", query.substring(query.indexOf("user") + 5, query.indexOf(";")));
+            if (user != null) {
+                hashIssue.put("user", user.toLowerCase());
             }
-            if(query.contains("name=")){
-                hashIssue.put("name", query.substring(query.indexOf("name") + 5, query.indexOf(";")));
+            if (name != null) {
+                hashIssue.put("name", name.toLowerCase());
             }
-            for (Issue issue : issueRepository.findAll()){
-                if (issue.getIssueId() == Long.parseLong(hashIssue.get("id")) ||
-                        issue.getAssignee().equals(hashIssue.get("user")) ||
-                        issue.getQe().equals(hashIssue.get("user")) ||
-                        issue.getSe().equals(hashIssue.get("user")) ||
-                        issue.getIssueName().equals(hashIssue.get("name")))
-                {
+            for (Issue issue : issueRepository.findAll()) {
+                if (issue.getIssueId() == Long.parseLong(hashIssue.get("id")) &&
+                        (issue.getAssignee().equals(hashIssue.get("user")) ||
+                         issue.getQe().equals(hashIssue.get("user")) ||
+                         issue.getSe().equals(hashIssue.get("user")) ||
+                         issue.getRequester().equals(hashIssue.get("user")))
+//                    issue.getIssueName().equals(hashIssue.get("name"))
+                ) {
                     response.add(issue);
                 }
             }
-            return ResponseEntity.ok(response);
-        }
-        for (Issue issue : issueRepository.findAll()){
-            if (issue.getDescription().contains(query)){
-                response.add(issue);
+            if (!response.isEmpty()) {
+                return ResponseEntity.ok(response);
+            }
+            if (name != null){
+                for (Issue issue : issueRepository.findAll()) {
+                    if (issue.getDescription().contains(name)) {
+                        response.add(issue);
+                    }
+                }
             }
         }
-        if (!response.isEmpty()){
-            return ResponseEntity.ok(response);
-        }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
-        //TODO @RequestParam and "boolean AND" of parameters for response(issue)
+    //TODO SQL-like requests using .findBy() etc.
         /*
          issueName: find all id, user, name -> "user=max@tech,name=FirstIssue"
          a) Find all issues -> check each if has name
          b) Find all issues for user, find all for name, compare (equals)
         */
-    }
 
     @PostMapping("/issues/add")
     public ResponseEntity addIssue(Issue issue) {
@@ -94,7 +97,7 @@ public class IssueController {
     }
 
     @PutMapping("/issue")
-    public ResponseEntity<String> updateIssue(Issue newIssue){
+    public ResponseEntity<String> updateIssue(Issue newIssue) {
         for (Issue issue : issueRepository.findAll()) {
             if (issue.getIssueId() == newIssue.getIssueId()) {
                 issue.resetIssue(newIssue);
