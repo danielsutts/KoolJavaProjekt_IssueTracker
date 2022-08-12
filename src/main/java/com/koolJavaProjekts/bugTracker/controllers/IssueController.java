@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,6 +49,14 @@ public class IssueController {
         if (id != null || user != null || name != null){
             List<Issue> response = new ArrayList<>();
             final HashMap<String, String> hashIssue = new HashMap<>();
+            /*
+            final Field[] parameters = new Field[]{id, user, name};
+
+            for (Field param: parameters) {
+                hashIssue.put();
+            }
+            */
+
             if (id != null) {
                 //TODO make check that ID is Long
                 hashIssue.put("id", id);
