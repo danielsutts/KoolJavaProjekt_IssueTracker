@@ -2,4 +2,31 @@
   <div class="row">
     <h1>Here's a list of all issues for {{username.sessionId}}</h1>
   </div>
+  <div class="row">
+    <div>
+      <table class="table align-middle mb-0 bg-white">
+        <thead class="bg-light">
+        <tr>
+          <th>ID</th>
+          <th>Issue Name</th>
+        </tr>
+        </thead>
+        <tbody *ngFor="let issue of allissues">
+        <tr>
+          <td>
+            <div class="d-flex align-items-center">
+              <img/>
+              <div class="ms-3">
+                <p class="fw-bold mb-1">{{issue.issueID}}</p>
+              </div>
+            </div>
+          </td>
+          <td>
+            <p class="fw-normal mb-1">{{issue.issueName}}</p>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

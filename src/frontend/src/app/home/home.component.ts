@@ -8,6 +8,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class HomeComponent implements OnInit {
   username: any = "";
+  allissues: any = Array;
 
   constructor(private http: HttpClient) {
   }
@@ -15,7 +16,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.http.get<any>('/issues/all').subscribe(res => {
       if (res) {
-        console.log('List: ', res);
+        this.allissues = res;
       } else {
         alert('Failed to query list.')
       }
