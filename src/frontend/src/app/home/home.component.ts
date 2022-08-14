@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
       if (res) {
         this.allissues = res;
       } else {
-        alert('Failed to query list.')
+        console.log('Failed to query list.')
       }
     })
     this.http.get('/api/user/me').subscribe(res => {

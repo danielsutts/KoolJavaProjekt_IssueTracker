@@ -9,6 +9,7 @@
         <tr>
           <th>ID</th>
           <th>Issue Name</th>
+          <th>Issue Description</th>
         </tr>
         </thead>
         <tbody *ngFor="let issue of allissues">
@@ -23,6 +24,9 @@
           </td>
           <td>
             <p class="fw-normal mb-1">{{issue.issueName}}</p>
+          </td>
+          <td>
+            <p class="fw-normal mb-1">{{issue.description}}</p>
           </td>
         </tr>
         </tbody>
