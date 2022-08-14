@@ -1,5 +1,7 @@
 package com.koolJavaProjekts.bugTracker.dto;
 
+import com.koolJavaProjekts.bugTracker.models.Issue;
+
 import javax.persistence.Column;
 
 public class IssueDTO {
@@ -166,5 +168,31 @@ public class IssueDTO {
     }
     public void setIssue(String issue) {
         this.issue = issue;
+    }
+
+    public void fromIssue(Issue issue) {
+        this.issueName = issue.getIssueName();
+        this.priority = issue.getPriority();
+        this.issueID = issue.getIssueId();
+        this.description = issue.getDescription();
+        this.attachment = issue.getAttachment();
+        this.buildVersion = issue.getBuildVersion();
+        this.requester = issue.getRequester();
+        this.assignee = issue.getAssignee();
+        this.dateOpened = issue.getDateOpened();
+        this.dateUpdated = issue.getDateUpdated();
+        this.dateDue = issue.getDateDue();
+        this.buildPoints = issue.getBuildPoints();
+        this.storyPoints = issue.getStoryPoints();
+        this.mrr = issue.getMrr();
+        this.project = issue.getProject();
+        this.childId = issue.getChildId();
+        this.parentId = issue.getParentId();
+        this.summary = issue.getSummary();
+        this.branchName = issue.getBranchName();
+        this.se = issue.getSe();
+        this.qe = issue.getQe();
+        this.teamLead = issue.getTeamLead();
+        this.issue = issue.getIssue();
     }
 }

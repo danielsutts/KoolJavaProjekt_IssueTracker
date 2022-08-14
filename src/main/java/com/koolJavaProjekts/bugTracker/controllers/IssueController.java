@@ -32,8 +32,7 @@ public class IssueController {
         List<IssueDTO> response = new ArrayList<>();
         IssueDTO issueDto = new IssueDTO();
         for (Issue issue : issueRepository.findAll()) {
-            issueDto.setIssueName(issue.getIssueName());
-            issueDto.setIssueID(issue.getIssueId());
+            issueDto.fromIssue(issue);
             response.add(issueDto);
         }
         return ResponseEntity.ok(response);
